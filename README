@@ -1,11 +1,11 @@
-# Bearing Fault Early Detection with Custom DSP Features
+* Bearing Fault Early Detection with Custom DSP Features
 
-## Overview
+** Overview
 This repository explores innovative feature extraction techniques for early detection of bearing degradation using vibration data from the NASA Bearing Dataset. By combining classical denoising (Kalman filtering) with advanced time-frequency transforms (CWT and synchrosqueezing), we aim to identify subtle anomalies in non-stationary signals. The approach is validated through human auditory analysis (listening to concatenated audio clips) and quantitative metrics, providing a baseline for machine learning integration (CNN autoencoders or supervised CNNs). 
 
 The goal is to achieve real-time prognostics for rotating machinery, with extensions to industrial applications like drilling telemetry monitoring, where early fault detection can prevent costly downtime.
 
-## Dataset: NASA Bearing Dataset (Focus on Set 2)
+** Dataset: NASA Bearing Dataset (Focus on Set 2)
 The NASA Prognostics Data Repository provides run-to-failure vibration data from Rexnord ZA-2115 double-row bearings under constant conditions (2000 RPM, 6000 lbs radial load, force-lubricated).
 
 - **Set 2 Details** (Selected for Simplicity):
@@ -36,17 +36,17 @@ Data is loaded as a NumPy array [984 files, 4 channels, 20,000 samples] for anal
 
 This pipeline prioritizes early detection (e.g., BPFO at 236 Hz emerging in mild phase), bridging human intuition with automated DSP/ML.
 
-## Installation & Usage
+** Installation & Usage
 1. Clone repo: `git clone https://github.com/DrStef/Bearing-Fault-Detection.git`
 2. Install deps: `conda install -c conda-forge pywt numpy scipy matplotlib pandas -y` (or pip equivalent).
 3. Run notebook: `jupyter notebook main_analysis.ipynb`
    - Loads data from `archiveNASA/2nd_test`.
    - Generates plots, audio, and features.
 
-## Extensions to Drilling Telemetry
+** Extensions to Drilling Telemetry
 The methods scale to oil & gas telemetry: Custom CWT/synchrosqueezing on multi-sensor vibrations (torque/pressure fusion) for real-time fault prediction (e.g., harmonic anomalies indicating bit fatigue 30s ahead). Aligns with streaming ML pipelines (Kafka/Flink) for 10k ft deep operations.
 
-## License
+** License
 MIT License – feel free to fork and collaborate!
 
 *Contact: DrStef on GitHub | Open to DSP/ML discussions for industrial prognostics.*
