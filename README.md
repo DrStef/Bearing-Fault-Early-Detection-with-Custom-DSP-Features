@@ -36,12 +36,33 @@ Data is loaded as a NumPy array [984 files, 4 channels, 20,000 samples] for anal
 
 This pipeline prioritizes early detection (e.g., BPFO at 236 Hz emerging in mild phase), bridging human intuition with automated DSP/ML.
 
+## Theoretical Fault Frequencies for Rexnord ZA-2115 Bearing (at 2000 RPM)
+
+Based on standard formulas (from the Stack Exchange discussion) and bearing parameters: n=16 (rollers per row), D=2.815 in (pitch diameter), d=0.331 in (roller diameter), φ=15.171° (contact angle). Shaft speed R = 2000/60 = 33.33 rev/s.
+
+### Table of Fault Frequencies
+
+| Frequency       | Formula                          | Theoretical Value (Hz) | Interpretation                                                                 |
+|-----------------|----------------------------------|------------------------|-------------------------------------------------------------------------------|
+| FTF (Cage)     | (R/2) (1 - (d/D) cos φ)         | ≈ 0.40                | Fundamental train frequency (cage rotation). Close to your 50-60 Hz peaks? (multiples possible). |
+| BPFO (Outer Race) | (n R/2) (1 - (d/D) cos φ) | ≈ 236.4               | Ball pass outer – outer race fault, with sidebands at ±33.33 Hz. |
+| BPFI (Inner Race) | (n R/2) (1 + (d/D) cos φ) | ≈ 803.6               | Ball pass inner – inner race fault, harmonics ~2x = 1607 Hz. |
+| BSF (Ball Spin) | (D R / 2d) [1 - ((d/D) cos φ)^2] | ≈ 141.2               | Ball spin – roller element fault, subharmonics ~70 Hz.         |
+
+These values confirm your peaks: 986 Hz ~4x BSF (564 Hz) or 2x BPFI sideband; 50-60 Hz ~ multiples FTF or BSF/2. For 9000 Hz, it's outside faults (shaft resonance or noise).
+
+
+
+
+
+
 ## Installation & Usage
 1. Clone repo: `git clone https://github.com/DrStef/Bearing-Fault-Detection.git`
 2. Install deps: `conda install -c conda-forge pywt numpy scipy matplotlib pandas -y` (or pip equivalent).
 3. Run notebook: `jupyter notebook main_analysis.ipynb`
    - Loads data from `archiveNASA/2nd_test`.
    - Generates plots, audio, and features.
+   
 
 ## Extensions to Drilling Telemetry
 The methods scale to oil & gas telemetry: Custom CWT/synchrosqueezing on multi-sensor vibrations (torque/pressure fusion) for real-time fault prediction (e.g., harmonic anomalies indicating bit fatigue 30s ahead). Aligns with streaming ML pipelines (Kafka/Flink) for 10k ft deep operations.
