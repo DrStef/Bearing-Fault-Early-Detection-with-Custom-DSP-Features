@@ -1,4 +1,4 @@
-# Bearing Fault Detection: Early Degradation with Custom DSP Features
+# Bearing Fault Early Detection with Custom DSP Features
 
 ## Overview
 This repository explores innovative feature extraction techniques for early detection of bearing degradation using vibration data from the NASA Bearing Dataset. By combining classical denoising (Kalman filtering) with advanced time-frequency transforms (CWT and synchrosqueezing), we aim to identify subtle anomalies in non-stationary signals. The approach is validated through human auditory analysis (listening to concatenated audio clips) and quantitative metrics, providing a baseline for machine learning integration (CNN autoencoders or supervised CNNs). 
